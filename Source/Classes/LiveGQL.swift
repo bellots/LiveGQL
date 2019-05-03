@@ -22,6 +22,11 @@ open class LiveGQL: NSObject {
         }
     }
 
+    // This var returns socket int status
+    public var socketStatus:Int{
+        return socket.readyState.rawValue
+    }
+
     
     /// This function init the socket server with a default protocol "graphql-subscriptions"
     ///
