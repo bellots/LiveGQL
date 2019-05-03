@@ -234,10 +234,11 @@ extension LiveGQL: SRWebSocketDelegate {
         queue.remove(at: 0)
     }
 
-    public func webSocket(_: SRWebSocket!, didCloseWithCode _: Int, reason _: String!, wasClean _: Bool) {
-        if reconnect {
-            socket.open()
-        }
+    public func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        delegate?.webSocket(didCloseWithCode: code, reason: reason, wasClean: wasClean)
+//        if reconnect {
+//            socket.open()
+//        }
     }
 
     public func webSocket(_: SRWebSocket!, didReceiveMessage message: Any!) {
@@ -248,5 +249,6 @@ extension LiveGQL: SRWebSocketDelegate {
 // MARK: - Delegate methods
 @objc public protocol LiveGQLDelegate: class {
     func receivedRawMessage(text: String)
+    func webSocket(didCloseWithCode _: Int, reason _: String!, wasClean _: Bool)
     @objc optional func receiveDictMessage(dict: [String: Any]?)
 }
